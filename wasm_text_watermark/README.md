@@ -8,7 +8,8 @@ npm install wasm_text_watermark
 ```
 
 
-## How to build from 
+## How to build from source code
+
 ```shell
 cd text_blind
 cargo clean

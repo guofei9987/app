@@ -1,22 +1,25 @@
-# hidden_watermark_web
-A Wasm-based wrapper for hidden_watermark
+# app
+
+This project is a Wasm-based wrapper for my rust projects:
+- [https://github.com/guofei9987/hidden_watermark](https://github.com/guofei9987/hidden_watermark)
 
 
 
+## hidden_watermark
 
-## to install packages from npm
+Source Code: [https://github.com/guofei9987/hidden_watermark](https://github.com/guofei9987/hidden_watermark)
 
-hidden watermark in text:
-
-```shell
-npm install wasm_text_watermark
-```
-
-
-## to build from Rust and Wasm
+Build from source code:
 
 ```shell
 cd wasm_text_watermark
 cargo clean
 wasm-pack build --target web
 ```
+
+Or install from npm:
+
+```shell
+npm install wasm_text_watermark
+```
+
