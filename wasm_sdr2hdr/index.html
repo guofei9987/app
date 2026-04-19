@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>SDR to HDR Converter</title>
+</head>
+<body>
+    <h1>Convert SDR Image to HDR</h1>
+    <input type="file" id="imageInput" accept="image/*">
+    <br>
+    <label for="iccType">HDR Type:</label>
+    <select id="iccType">
+        <option value="1">Type 1</option>
+        <option value="2">Type 2</option>
+    </select>
+    <br>
+    <button id="convertBtn">Convert to HDR</button>
+    <br>
+    <a id="downloadLink" style="display:none">Download HDR Image</a>
+
+    <script type="module">
+        import init, { convert_to_hdr } from './pkg/wasm_sdr2hdr.js';
+
+        async function run() {
+            await init();
+
+            const imageInput = document.getElementById('imageInput');
+            const iccTypeSelect = document.getElementById('iccType');
+            const convertBtn = document.getElementById('convertBtn');
+            const downloadLink = document.getElementById('downloadLink');
+
+            convertBtn.addEventListener('click', async () => {
+                const file = imageInput.files[0];
+                if (!file) {
+                    alert('Please select an image file.');
+                    return;
+                }
+
+                const iccType = parseInt(iccTypeSelect.value);
+                const imageData = new Uint8Array(await file.arrayBuffer());
+
+                try {
+                    const hdrData = convert_to_hdr(imageData, iccType);
+                    const blob = new Blob([hdrData], { type: 'image/jpeg' }); // or png
+                    const url = URL.createObjectURL(blob);
+                    downloadLink.href = url;
+                    downloadLink.download = 'hdr_image.jpg'; // adjust extension
+                    downloadLink.style.display = 'block';
+                    downloadLink.textContent = 'Download HDR Image';
+                } catch (error) {
+                    alert('Error converting image: ' + error);
+                }
+            });
+        }
+
+        run();
+    </script>
+</body>
+</html>
