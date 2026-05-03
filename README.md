@@ -23,3 +23,10 @@ Or install from npm:
 npm install wasm_text_watermark
 ```
 
+## How to Build from Source Code
+
+```shell
+cd xxx
+cargo clean
+wasm-pack build --target web
+```
